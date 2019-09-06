@@ -3,7 +3,7 @@ Firebase Auth w/ Google Sign-In in Chrome Extensions
 
 This sample demonstrates how to authorize a user with Firebase in a Chrome extension using Google Sign-In and setup the Chrome extension to allow the use of the Realtime Database and Firebase Storage.
 
-Feel free to try out a demo version of the Chrome Extension directly: https://chrome.google.com/webstore/detail/lpgchdfbjddonaolofeijjackhnhnlla
+Feel free to try out a demo version of the Chrome Extension directly: https://chrome.google.com/webstore/detail/firebase-auth-in-chrome-e/ehflheedljfngcklcnigfonmllgkadbb
 
 Introduction
 ------------
@@ -63,7 +63,7 @@ Using Firebase in your own extension
 
 The keys to using Firebase in a Chrome extension are:
  - Because of Chrome Extensions' [Content Security Policy](https://developer.chrome.com/extensions/contentSecurityPolicy) you need to avoid inline JavaScript in your HTML pages so you need to add the Firebase initialisation snippet in your JS file instead of inside the HTML file as we [typically instruct](https://firebase.google.com/docs/web/setup). The Firebase initialisation snippet looks like this:
- 
+
  ```javascript
  // Initialize Firebase
  var config = {
@@ -79,14 +79,14 @@ The keys to using Firebase in a Chrome extension are:
    - In your project's Firebase Console, enable the **Google** authentication method in the **Auth** section > **SIGN IN METHOD** tab.
    - Add the Client ID you created to the whitelist using the **Whitelist client IDs from external projects (optional)**
  - Use the chrome.identity API to get a Google OAuth token as described in https://developer.chrome.com/apps/app_identity and then use this token to authorize Firebase using [Auth.signInWithCredential()](https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signInWithCredential):
- 
+
  ```javascript
  var credential = firebase.auth.GoogleAuthProvider.credential(null, token);
  firebase.auth().signInWithCredential(credential);
  ```
- 
+
  - Add the following content security policy to your `manifest.json` to allow importing the Firebase SDK and accessing the Realtime Database as well as Firebase Storage:
-   
+
  ```javascript
  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'"
  ```

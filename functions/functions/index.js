@@ -18,7 +18,7 @@
 const functions = require('firebase-functions');
 const sanitizer = require('./sanitizer');
 const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
 
 // [START allAdd]
 // [START addFunctionTrigger]
@@ -95,10 +95,10 @@ exports.addMessage = functions.https.onCall((data, context) => {
     return { text: sanitizedMessage };
   })
   // [END returnMessageAsync]
-  .catch((error) => {
+    .catch((error) => {
     // Re-throwing the error as an HttpsError so that the client gets the error details.
-    throw new functions.https.HttpsError('unknown', error.message, error);
-  });
+      throw new functions.https.HttpsError('unknown', error.message, error);
+    });
   // [END_EXCLUDE]
 });
 // [END messageFunctionTrigger]
